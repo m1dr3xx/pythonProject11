@@ -2,6 +2,7 @@ import asyncio  # Работа с асинхронностью
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from wikipedia import wikipedia
 
 from config import config  # Config
 from handlers import common, wikipedia_handlers
@@ -14,7 +15,7 @@ def register_all_routers(dp: Dispatcher):
 async def main():
     bot = Bot(token=config.token)
     dp = Dispatcher(storage=MemoryStorage())  # Менеджер бота
-
+    wikipedia.set_lang("ru")
     register_all_routers(dp)
     try:
         print('Bot Started')

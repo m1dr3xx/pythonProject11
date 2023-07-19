@@ -1,9 +1,22 @@
 from aiogram import Router
 from aiogram.types import Message
-from wikipedia import wikipedia
+from wikipedia import wikipedia, WikipediaException
+
+from keyboards.inline import generate_url_keyboard
 
 wiki_router = Router()
 
 @wiki_router.message()
 async def wiki(message: Message):
-    await message.answer(str(wikipedia.search(message.text)))
+    try:
+        answer = wikipedia.summary(str(message.text))
+        if len(answer) <= 4096:
+            await message.answer(wikipedia.summary(str(message.text)))
+        else:
+            await message.answer(wikipedia.summary(str(message.text, symbol)))
+
+    except WikipediaException:
+        await message.answer("Такого слова нет в википедии")
+        await message.answer("Можете найти в интернете по ссылкам:", reply_markup=generate_url_keyboard(message.text))
+
+
