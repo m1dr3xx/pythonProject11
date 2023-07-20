@@ -14,7 +14,8 @@ async def wiki(message: Message):
         if len(answer) <= 4096:
             await message.answer(wikipedia.summary(str(message.text)))
         else:
-            await message.answer("Читать полностью: https://ru.wikipedia.org/wiki/" + message.text)
+            shortened = answer[:4096 - 62 - len(message.text) - 10] + '...'
+            await message.answer(shortened + f'\n<a href="https://ru.wikipedia.org/wiki/{message.text}">Читать полностью</a>')
 
     except WikipediaException:
         await message.answer("Такого слова нет в википедии")
