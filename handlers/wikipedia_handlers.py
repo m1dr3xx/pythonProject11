@@ -18,5 +18,5 @@ async def wiki(message: Message):
             await message.answer(shortened + f'\n<a href="https://ru.wikipedia.org/wiki/{message.text}">Читать полностью</a>')
 
     except WikipediaException:
-        await message.answer("Такого слова нет в википедии")
+        await message.answer("По данному запросу ничего не было найдено в википедии")
         await message.answer("Можете найти в интернете по ссылкам:", reply_markup=generate_url_keyboard(message.text))
