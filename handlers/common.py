@@ -1,4 +1,4 @@
-from aiogram import Router
+from aiogram import Router, Bot
 from aiogram.filters import Command
 from aiogram.types import Message
 
@@ -18,3 +18,9 @@ async def help_command(message: Message):
                          " где можно посмотреть информацию о запрошенном слове,"
                          " либо если сообщение с информацией будет слишком большим, то"
                          " выведится ссылка на сайт с википедией запрошенного слова")
+
+@start_router.message(Command('delete_menu'))
+async def handle_menu_delete(message: Message, bot: Bot):
+    await bot.delete_my_commands()
+    await message.answer('Вы удалили меню(((')
+
