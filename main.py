@@ -1,7 +1,6 @@
 import asyncio  # Работа с асинхронностью
 
 from aiogram import Bot, Dispatcher
-from aiogram.client import bot
 from aiogram.fsm.storage.memory import MemoryStorage
 from wikipedia import wikipedia
 
@@ -22,7 +21,7 @@ async def main():
     register_all_routers(dp)
     try:
         print('Bot Started')
-        await dp.start_polling(bot)
+        await dp.start_polling(bot, skip_updates=True)
     finally:
         await bot.session.close()
 

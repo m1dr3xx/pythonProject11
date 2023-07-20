@@ -6,6 +6,7 @@ from keyboards.inline import generate_url_keyboard
 
 wiki_router = Router()
 
+
 @wiki_router.message()
 async def wiki(message: Message):
     try:
@@ -13,10 +14,8 @@ async def wiki(message: Message):
         if len(answer) <= 4096:
             await message.answer(wikipedia.summary(str(message.text)))
         else:
-            await message.answer("Читать полностью: https://ru.wikipedia.org/wiki/"+message.text)
+            await message.answer("Читать полностью: https://ru.wikipedia.org/wiki/" + message.text)
 
     except WikipediaException:
         await message.answer("Такого слова нет в википедии")
         await message.answer("Можете найти в интернете по ссылкам:", reply_markup=generate_url_keyboard(message.text))
-
-
